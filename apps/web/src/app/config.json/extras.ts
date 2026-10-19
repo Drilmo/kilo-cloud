@@ -125,13 +125,13 @@ const hookGroups = {
             },
             timeout: {
               description:
-                'Timeout in seconds. Default: 600; 30 for UserPromptSubmit and the model-switch events; 10 for BranchName; see the docs for the rest. A hook that times out does not block, except PreModelSwitch.',
+                'Timeout in seconds. Default: 600; 30 for UserPromptSubmit and the model-switch events; 10 for BranchName; see the docs for the rest. A hook that times out does not block unless onFailure is "block"; on PreModelSwitch a timeout always blocks.',
               type: 'integer',
               exclusiveMinimum: 0,
             },
             onFailure: {
               description:
-                'What happens when the hook fails (cannot start, times out, exits with a code other than 0 or 2, prints invalid JSON): "continue" (default) lets the action proceed, "block" blocks it on events that can block.',
+                'What happens when the hook fails (cannot start, times out, exits with a code other than 0 or 2, prints invalid JSON): "continue" (default) lets the action proceed, "block" blocks it (on PermissionRequest: denies). Honored only on PreToolUse, PostToolBatch, PermissionRequest, TaskCreated, UserPromptSubmit, UserPromptExpansion, PreModelSwitch, PreCompact, WakeupFire, WorktreeSetup, CommitMessage and BranchName.',
               type: 'string',
               enum: ['continue', 'block'],
             },
